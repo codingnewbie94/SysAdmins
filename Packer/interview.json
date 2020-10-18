@@ -1,0 +1,28 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "primal-pod-291618",
+      "account_file": "primal-pod-291618-f7d2c279d3f2.json",
+      "source_image": "ubuntu-1804-bionic-v20200923",
+      "ssh_username": "packer",
+      "disk_size": "50",
+      "zone": "europe-west3-a"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": "sudo apt-get update && sudo apt-get install nginx -y"
+    },
+    {
+      "type": "file",
+      "source": "files/index.html",
+      "destination": "/tmp/index.html"
+    },
+    {
+      "type": "shell",
+      "inline": "sudo mv /tmp/index.html /var/www/html/"
+    }
+  ]
+}
